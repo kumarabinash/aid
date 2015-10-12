@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151011185900) do
+ActiveRecord::Schema.define(version: 20151012160502) do
 
   create_table "categories", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -31,6 +31,17 @@ ActiveRecord::Schema.define(version: 20151011185900) do
 
   add_index "posts", ["sub_category_id"], name: "index_posts_on_sub_category_id", using: :btree
   add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
+
+  create_table "replies", force: :cascade do |t|
+    t.text     "body",       limit: 65535
+    t.integer  "user_id",    limit: 4
+    t.integer  "post_id",    limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
+  add_index "replies", ["post_id"], name: "index_replies_on_post_id", using: :btree
+  add_index "replies", ["user_id"], name: "index_replies_on_user_id", using: :btree
 
   create_table "sub_categories", force: :cascade do |t|
     t.string   "name",        limit: 255
@@ -61,5 +72,7 @@ ActiveRecord::Schema.define(version: 20151011185900) do
 
   add_foreign_key "posts", "sub_categories"
   add_foreign_key "posts", "users"
+  add_foreign_key "replies", "posts"
+  add_foreign_key "replies", "users"
   add_foreign_key "sub_categories", "categories"
 end
