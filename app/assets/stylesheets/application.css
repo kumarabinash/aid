@@ -15,3 +15,8 @@
  *= require foundation
  *= require normalize
  */
+
+.header{
+	background: pink;
+	padding: 10px;
+}

@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'forum' => 'forum#index'
+
   resources :replies
   resources :posts
   resources :sub_categories
